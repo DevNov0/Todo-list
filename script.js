@@ -11,6 +11,8 @@ class UI {
 
     //Metoda kde pracujeme v DOM a pridavame item jako radek do nasi tabulky
     static addItemToList(item){
+      
+
         const list = document.querySelector("#todo-list");
 
         const row = document.createElement('tr');
@@ -22,6 +24,15 @@ class UI {
         <td>${item.itemid}</td>
         <td><a href="#" class="btn btn-danger btn-sm delete">X</a></td>
         `; 
+
+          // kontrola vyplneneho formulare
+
+          const x = document.forms["myform"]["titleName"].value;
+        
+          if(x == ""){
+              alert("Titulek musi byt vyplnen");
+              row.innerHTML = ""; 
+          }
 
         list.appendChild(row);
     }
@@ -41,17 +52,7 @@ class UI {
         document.querySelector('#itemid').value = '';
     }
 
-    //Kontrolujeme zda je formular vyplnen
-    static required(){
-        const x = document.forms["myform"]["titleName"].value;
-        
-        if(x == ""){
-            alert("Titulek musi bzt vyplnen");
-            return false;
-        }
-    }
-        
-    
+  
    
 }
 
@@ -70,7 +71,6 @@ document.querySelector("#todo-form").addEventListener("submit", (e) => {
     const item = new Item(title, text, itemid);
 
     //Pridame item do naseho UI
-    UI.required();
     UI.addItemToList(item);
     UI.clearInputs();
     UI.checkForm();
